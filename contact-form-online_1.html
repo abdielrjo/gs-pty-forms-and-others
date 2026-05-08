@@ -228,6 +228,11 @@
                        oninvalid="this.setCustomValidity('Coloca una dirección de correo electrónico válida')" 
                        oninput="this.setCustomValidity('')">
             </div>
+
+            <div class="form-group">
+                <textarea id="frase" placeholder="¿A qué te dedicas? (Opcional)" maxlength="150" rows="3" style="width:100%;padding:14px;border:2px solid #eee;border-radius:8px;box-sizing:border-box;font-size:1rem;font-family:inherit;resize:none;transition:border-color 0.3s;" onfocus="this.style.borderColor='#00548E'" onblur="this.style.borderColor='#eee'"></textarea>
+                <div style="text-align:right;font-size:0.75rem;color:#999;margin-top:4px;"><span id="frase-count">0</span>/150</div>
+            </div>
             
             <label class="checkbox-group required-check">
                 <input type="checkbox" id="privacidad" required>
@@ -268,6 +273,10 @@
 </div>
 
 <script>
+    document.getElementById('frase').addEventListener('input', function() {
+        document.getElementById('frase-count').textContent = this.value.length;
+    });
+
     function showScreen(id) {
         document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
         document.getElementById(id).classList.add('active');
@@ -301,6 +310,7 @@
             nombre: document.getElementById('nombre').value,
             edad:   edadValue,
             correo: document.getElementById('correo').value,
+            frase:  document.getElementById('frase').value,
             fecha:  new Date().toLocaleString('es-PA')
         };
 
@@ -321,6 +331,8 @@
             document.getElementById('nombre').value = "";
             document.getElementById('edad').value = "";
             document.getElementById('correo').value = "";
+            document.getElementById('frase').value = "";
+            document.getElementById('frase-count').textContent = "0";
             document.getElementById('privacidad').checked = false;
 
             // Ir a pantalla de gracias
